@@ -50,10 +50,12 @@ const disconnectDB = async () => {
 const getDbStatus = () => {
   const readyState = mongoose.connection.readyState;
   return {
-    state: stateMap[readyState] || 'unknown',
+    state: stateMap[readyState] || 'standby',
     isConnected: readyState === 1,
     host: mongoose.connection.host || null,
-    name: mongoose.connection.name || null
+    name: mongoose.connection.name || null,
+    cluster: readyState === 1 ? 'Active Replica/Single' : 'Standby / Local Fallback',
+    statusMessage: readyState === 1 ? 'MongoDB database connection active' : 'Awaiting local MongoDB daemon or Atlas MONGO_URI'
   };
 };
 
