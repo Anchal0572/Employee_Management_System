@@ -471,49 +471,57 @@ export const Payslips = () => {
         value: fmt(summary.totalNetDisbursed),
         sub: `${summary.paidCount} payslips paid`,
         icon: DollarSign,
-        color: 'indigo',
-        border: 'border-l-indigo-600'
+        cardBg: 'bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60',
+        border: 'border-emerald-200/90',
+        iconBg: 'bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-xs',
+        textVal: 'text-emerald-950'
       },
       {
         label: 'Gross Liability',
         value: fmt(summary.totalGrossLiability),
         sub: `${summary.totalPayslips} total payslips`,
         icon: TrendingUp,
-        color: 'violet',
-        border: 'border-l-violet-600'
+        cardBg: 'bg-gradient-to-br from-violet-50 via-white to-purple-100/60',
+        border: 'border-violet-200/90',
+        iconBg: 'bg-gradient-to-tr from-violet-600 to-purple-500 text-white shadow-xs',
+        textVal: 'text-violet-950'
       },
       {
         label: 'Processing',
         value: summary.processingCount,
         sub: 'Awaiting disbursement',
         icon: Clock,
-        color: 'amber',
-        border: 'border-l-amber-500'
+        cardBg: 'bg-gradient-to-br from-amber-50 via-white to-amber-100/60',
+        border: 'border-amber-200/90',
+        iconBg: 'bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-xs',
+        textVal: 'text-amber-950'
       },
       {
         label: 'Draft / Pending',
         value: summary.draftCount,
         sub: 'Not yet finalized',
         icon: AlertTriangle,
-        color: 'rose',
-        border: 'border-l-rose-500'
+        cardBg: 'bg-gradient-to-br from-rose-50 via-white to-rose-100/60',
+        border: 'border-rose-200/90',
+        iconBg: 'bg-gradient-to-tr from-rose-500 to-pink-500 text-white shadow-xs',
+        textVal: 'text-rose-950'
       }
     ];
 
     return (
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {cards.map((c) => {
           const Icon = c.icon;
           return (
-            <div key={c.label} className={`bg-white rounded-xl border border-slate-200 border-l-4 ${c.border} p-4 shadow-sm`}>
+            <div key={c.label} className={`rounded-2xl border ${c.border} ${c.cardBg} p-4 shadow-xs hover:-translate-y-0.5 transition-all`}>
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">{c.label}</span>
-                <div className={`w-8 h-8 rounded-lg bg-${c.color}-50 flex items-center justify-center`}>
-                  <Icon className={`w-4 h-4 text-${c.color}-600`} />
+                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">{c.label}</span>
+                <div className={`w-8 h-8 rounded-xl ${c.iconBg} flex items-center justify-center`}>
+                  <Icon className="w-4 h-4" />
                 </div>
               </div>
-              <div className="text-2xl font-extrabold text-slate-900 mt-2">{c.value}</div>
-              <p className="text-[11px] text-slate-400 mt-1">{c.sub}</p>
+              <div className={`text-2xl sm:text-3xl font-black ${c.textVal} mt-2 tracking-tight`}>{c.value}</div>
+              <p className="text-[11px] text-slate-500 mt-1 font-medium">{c.sub}</p>
             </div>
           );
         })}
@@ -529,21 +537,21 @@ export const Payslips = () => {
       .reduce((s, p) => s + (p.netSalary || 0), 0);
 
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-indigo-600 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase">Latest Net Salary</div>
-          <div className="text-2xl font-extrabold text-slate-900 mt-2">{fmt(latestPaid?.netSalary)}</div>
-          <p className="text-[11px] text-slate-400 mt-1">{latestPaid ? fmtMonth(latestPaid.salaryMonth) : 'No paid payslip'}</p>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="rounded-2xl border border-indigo-200/90 bg-gradient-to-br from-indigo-50 via-white to-indigo-100/60 p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider">Latest Net Salary</div>
+          <div className="text-2xl sm:text-3xl font-black text-indigo-950 mt-2">{fmt(latestPaid?.netSalary)}</div>
+          <p className="text-[11px] text-indigo-600 mt-1 font-medium">{latestPaid ? fmtMonth(latestPaid.salaryMonth) : 'No paid payslip'}</p>
         </div>
-        <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-emerald-500 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase">YTD Net Income</div>
-          <div className="text-2xl font-extrabold text-slate-900 mt-2">{fmt(ytdNet)}</div>
-          <p className="text-[11px] text-slate-400 mt-1">{new Date().getFullYear()} cumulative</p>
+        <div className="rounded-2xl border border-emerald-200/90 bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60 p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">YTD Net Income</div>
+          <div className="text-2xl sm:text-3xl font-black text-emerald-950 mt-2">{fmt(ytdNet)}</div>
+          <p className="text-[11px] text-emerald-600 mt-1 font-medium">{new Date().getFullYear()} cumulative</p>
         </div>
-        <div className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-amber-500 p-4 shadow-sm">
-          <div className="text-[11px] font-semibold text-slate-500 uppercase">Payslips on Record</div>
-          <div className="text-2xl font-extrabold text-slate-900 mt-2">{totalRecords}</div>
-          <p className="text-[11px] text-slate-400 mt-1">All months combined</p>
+        <div className="rounded-2xl border border-amber-200/90 bg-gradient-to-br from-amber-50 via-white to-amber-100/60 p-4 shadow-xs col-span-2 sm:col-span-1">
+          <div className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Payslips on Record</div>
+          <div className="text-2xl sm:text-3xl font-black text-amber-950 mt-2">{totalRecords}</div>
+          <p className="text-[11px] text-amber-600 mt-1 font-medium">All cycles combined</p>
         </div>
       </div>
     );
@@ -552,25 +560,34 @@ export const Payslips = () => {
   return (
     <div className="space-y-6">
       {/* ── Page Header ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            {isAdmin ? 'Payroll & Payslip Management' : 'My Payslips & Compensation'}
-          </h1>
-          <p className="text-xs text-slate-500 mt-1">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-gradient-to-r from-violet-500/15 via-purple-500/10 to-emerald-500/15 rounded-2xl border border-violet-200/90 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-violet-300/30 to-purple-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="space-y-1 relative z-10">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+              {isAdmin ? 'Payroll & Compensation Operations' : 'My Payslips & Compensation'}
+            </h1>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-violet-100 text-violet-800 border border-violet-300 shadow-2xs">
+              Financial Hub
+            </span>
+          </div>
+          <p className="text-xs text-slate-600 font-medium">
             {isAdmin
-              ? 'Generate, process, and manage employee payslips. All calculations are authoritative server-side values.'
-              : 'Your official salary statements, earnings breakdown, and printable payslips.'}
+              ? 'Generate, process, and manage employee payslips with automated salary calculations.'
+              : 'Official monthly salary statements, itemized deductions, and printable payslip receipts.'}
           </p>
         </div>
         {isAdmin && (
-          <Button
-            variant="primary"
-            icon={Plus}
-            onClick={() => setGenerateOpen(true)}
-          >
-            Generate Payslip
-          </Button>
+          <div className="relative z-10">
+            <Button
+              size="md"
+              icon={Plus}
+              onClick={() => setGenerateOpen(true)}
+              className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold shadow-lg shadow-violet-500/25 ring-2 ring-violet-400/20 rounded-xl"
+            >
+              Generate Payslip
+            </Button>
+          </div>
         )}
       </div>
 
@@ -578,7 +595,7 @@ export const Payslips = () => {
       {isAdmin ? <KpiCards /> : <EmployeeSummary />}
 
       {/* ── Filter Bar ───────────────────────────────────────────────────────── */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+      <div className="bg-white/95 rounded-2xl border border-violet-200/80 shadow-xs p-4">
         <div className="flex flex-wrap items-center gap-3">
           {/* Search */}
           <div className="relative flex-1 min-w-[180px] max-w-xs">

@@ -27,36 +27,167 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
   const pendingLeavesCount = leaves.filter(l => l.status?.toLowerCase() === 'pending').length;
 
   const adminNavItems = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'AI HR Assistant', path: '/ai-assistant', icon: Sparkles },
-    { name: 'Employees', path: '/employees', icon: Users },
-    { name: 'Attendance', path: '/attendance', icon: Clock },
-    { name: 'Leaves', path: '/leaves', icon: CalendarDays, badge: pendingLeavesCount > 0 ? pendingLeavesCount : null },
-    { name: 'Payroll', path: '/payroll', icon: CreditCard },
-    { name: 'Reports', path: '/analytics', icon: BarChart3 },
-    { name: 'Notifications', path: '/notifications', icon: Bell, badge: unreadNotifCount > 0 ? unreadNotifCount : null },
-    { name: 'System Diagnostics', path: '/system-health', icon: Activity },
-    { name: 'Settings', path: '/settings', icon: Settings }
+    { 
+      name: 'Dashboard', 
+      path: '/', 
+      icon: LayoutDashboard,
+      activeGradient: 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25',
+      iconColor: 'text-indigo-500 group-hover:text-indigo-600',
+      hoverBg: 'hover:bg-indigo-50/70'
+    },
+    { 
+      name: 'AI HR Assistant', 
+      path: '/ai-assistant', 
+      icon: Sparkles,
+      activeGradient: 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-500/25',
+      iconColor: 'text-purple-500 group-hover:text-purple-600',
+      hoverBg: 'hover:bg-purple-50/70',
+      isAi: true
+    },
+    { 
+      name: 'Employees', 
+      path: '/employees', 
+      icon: Users,
+      activeGradient: 'bg-gradient-to-r from-blue-600 via-blue-600 to-cyan-600 text-white shadow-md shadow-blue-500/25',
+      iconColor: 'text-blue-500 group-hover:text-blue-600',
+      hoverBg: 'hover:bg-blue-50/70'
+    },
+    { 
+      name: 'Attendance', 
+      path: '/attendance', 
+      icon: Clock,
+      activeGradient: 'bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/25',
+      iconColor: 'text-emerald-500 group-hover:text-emerald-600',
+      hoverBg: 'hover:bg-emerald-50/70'
+    },
+    { 
+      name: 'Leaves', 
+      path: '/leaves', 
+      icon: CalendarDays, 
+      activeGradient: 'bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 text-white shadow-md shadow-amber-500/25',
+      iconColor: 'text-amber-500 group-hover:text-amber-600',
+      hoverBg: 'hover:bg-amber-50/70',
+      badge: pendingLeavesCount > 0 ? pendingLeavesCount : null 
+    },
+    { 
+      name: 'Payroll', 
+      path: '/payroll', 
+      icon: CreditCard,
+      activeGradient: 'bg-gradient-to-r from-violet-600 via-purple-600 to-rose-600 text-white shadow-md shadow-violet-500/25',
+      iconColor: 'text-violet-500 group-hover:text-violet-600',
+      hoverBg: 'hover:bg-violet-50/70'
+    },
+    { 
+      name: 'Reports', 
+      path: '/analytics', 
+      icon: BarChart3,
+      activeGradient: 'bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 text-white shadow-md shadow-rose-500/25',
+      iconColor: 'text-rose-500 group-hover:text-rose-600',
+      hoverBg: 'hover:bg-rose-50/70'
+    },
+    { 
+      name: 'Notifications', 
+      path: '/notifications', 
+      icon: Bell, 
+      activeGradient: 'bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white shadow-md shadow-sky-500/25',
+      iconColor: 'text-sky-500 group-hover:text-sky-600',
+      hoverBg: 'hover:bg-sky-50/70',
+      badge: unreadNotifCount > 0 ? unreadNotifCount : null 
+    },
+    { 
+      name: 'System Diagnostics', 
+      path: '/system-health', 
+      icon: Activity,
+      activeGradient: 'bg-gradient-to-r from-teal-600 via-emerald-600 to-teal-700 text-white shadow-md shadow-teal-500/25',
+      iconColor: 'text-teal-500 group-hover:text-teal-600',
+      hoverBg: 'hover:bg-teal-50/70'
+    },
+    { 
+      name: 'Settings', 
+      path: '/settings', 
+      icon: Settings,
+      activeGradient: 'bg-gradient-to-r from-slate-700 via-slate-800 to-indigo-900 text-white shadow-md shadow-slate-500/25',
+      iconColor: 'text-slate-500 group-hover:text-slate-700',
+      hoverBg: 'hover:bg-slate-100'
+    }
   ];
 
   const employeeNavItems = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'AI HR Assistant', path: '/ai-assistant', icon: Sparkles },
-    { name: 'My Attendance', path: '/attendance', icon: Clock },
-    { name: 'My Leaves', path: '/leaves', icon: CalendarDays },
-    { name: 'My Payslips', path: '/payroll', icon: CreditCard },
-    { name: 'Notifications', path: '/notifications', icon: Bell, badge: unreadNotifCount > 0 ? unreadNotifCount : null },
-    { name: 'My Profile', path: '/profile', icon: User },
-    { name: 'Settings', path: '/settings', icon: Settings }
+    { 
+      name: 'Dashboard', 
+      path: '/', 
+      icon: LayoutDashboard,
+      activeGradient: 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25',
+      iconColor: 'text-indigo-500 group-hover:text-indigo-600',
+      hoverBg: 'hover:bg-indigo-50/70'
+    },
+    { 
+      name: 'AI HR Assistant', 
+      path: '/ai-assistant', 
+      icon: Sparkles,
+      activeGradient: 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600 text-white shadow-md shadow-purple-500/25',
+      iconColor: 'text-purple-500 group-hover:text-purple-600',
+      hoverBg: 'hover:bg-purple-50/70',
+      isAi: true
+    },
+    { 
+      name: 'My Attendance', 
+      path: '/attendance', 
+      icon: Clock,
+      activeGradient: 'bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/25',
+      iconColor: 'text-emerald-500 group-hover:text-emerald-600',
+      hoverBg: 'hover:bg-emerald-50/70'
+    },
+    { 
+      name: 'My Leaves', 
+      path: '/leaves', 
+      icon: CalendarDays,
+      activeGradient: 'bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 text-white shadow-md shadow-amber-500/25',
+      iconColor: 'text-amber-500 group-hover:text-amber-600',
+      hoverBg: 'hover:bg-amber-50/70'
+    },
+    { 
+      name: 'My Payslips', 
+      path: '/payroll', 
+      icon: CreditCard,
+      activeGradient: 'bg-gradient-to-r from-violet-600 via-purple-600 to-rose-600 text-white shadow-md shadow-violet-500/25',
+      iconColor: 'text-violet-500 group-hover:text-violet-600',
+      hoverBg: 'hover:bg-violet-50/70'
+    },
+    { 
+      name: 'Notifications', 
+      path: '/notifications', 
+      icon: Bell, 
+      activeGradient: 'bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white shadow-md shadow-sky-500/25',
+      iconColor: 'text-sky-500 group-hover:text-sky-600',
+      hoverBg: 'hover:bg-sky-50/70',
+      badge: unreadNotifCount > 0 ? unreadNotifCount : null 
+    },
+    { 
+      name: 'My Profile', 
+      path: '/profile', 
+      icon: User,
+      activeGradient: 'bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 text-white shadow-md shadow-cyan-500/25',
+      iconColor: 'text-cyan-600 group-hover:text-cyan-700',
+      hoverBg: 'hover:bg-cyan-50/70'
+    },
+    { 
+      name: 'Settings', 
+      path: '/settings', 
+      icon: Settings,
+      activeGradient: 'bg-gradient-to-r from-slate-700 via-slate-800 to-indigo-900 text-white shadow-md shadow-slate-500/25',
+      iconColor: 'text-slate-500 group-hover:text-slate-700',
+      hoverBg: 'hover:bg-slate-100'
+    }
   ];
 
   const navItems = isAdmin ? adminNavItems : employeeNavItems;
 
   const content = (
-    <div className="flex flex-col h-full bg-white/95 backdrop-blur-xl text-slate-700 border-r border-slate-200/80 shadow-[1px_0_15px_rgba(0,0,0,0.02)] select-none">
+    <div className="flex flex-col h-full bg-white/90 backdrop-blur-xl text-slate-700 border-r border-slate-200/80 shadow-[1px_0_20px_rgba(0,0,0,0.03)] select-none">
       {/* Brand Header */}
-      <div className="h-16 flex items-center px-5 border-b border-slate-100 gap-3 bg-gradient-to-r from-slate-50/60 via-white to-indigo-50/20">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/25 ring-2 ring-indigo-50 shrink-0">
+      <div className="h-16 flex items-center px-5 border-b border-slate-100 gap-3 bg-gradient-to-r from-indigo-50/60 via-purple-50/30 to-white">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/25 ring-2 ring-indigo-100 shrink-0">
           <Activity className="w-5 h-5 text-white" />
         </div>
         <div className="flex flex-col min-w-0">
@@ -75,7 +206,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
       </div>
 
       {/* Role Navigation List */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
         <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
           <span>{isAdmin ? 'Administration' : 'Employee Workspace'}</span>
         </div>
@@ -89,30 +220,37 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               end={item.path === '/'}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
+                `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 group ${
                   isActive
-                    ? 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25'
-                    : 'text-slate-600 hover:text-indigo-600 hover:bg-slate-50/90'
+                    ? `${item.activeGradient} font-bold transform translate-x-0.5`
+                    : `text-slate-600 ${item.hoverBg} hover:text-slate-900`
                 }`
               }
             >
               {({ isActive }) => (
                 <>
                   <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 shrink-0 transition-colors ${
-                      isActive ? 'text-white' : 'text-slate-400 group-hover:text-indigo-600'
+                    <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 duration-200 ${
+                      isActive ? 'text-white' : item.iconColor
                     }`} />
-                    <span>{item.name}</span>
+                    <span className="truncate">{item.name}</span>
                   </div>
-                  {item.badge && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold leading-none ${
-                      isActive
-                        ? 'bg-white/20 text-white border border-white/30'
-                        : 'bg-indigo-600 text-white shadow-xs'
-                    }`}>
-                      {item.badge}
-                    </span>
-                  )}
+                  <div className="flex items-center gap-1.5">
+                    {item.isAi && !isActive && (
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-2xs animate-pulse">
+                        AI
+                      </span>
+                    )}
+                    {item.badge && (
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold leading-none ${
+                        isActive
+                          ? 'bg-white/25 text-white border border-white/40'
+                          : 'bg-indigo-600 text-white shadow-xs'
+                      }`}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
                 </>
               )}
             </NavLink>

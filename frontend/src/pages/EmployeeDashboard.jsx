@@ -169,41 +169,45 @@ export const EmployeeDashboard = () => {
       )}
 
       {/* Welcome Banner with Live Punch Clock Widget */}
-      <div className="bg-slate-900 text-white rounded-xl p-6 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="flex items-center gap-4">
+      <div className="bg-gradient-to-r from-indigo-500/15 via-purple-500/10 to-pink-500/15 text-slate-900 rounded-2xl p-6 border border-indigo-200/90 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-indigo-300/30 to-purple-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="flex items-center gap-4 relative z-10">
           <img
             src={profile.avatar}
             alt={profile.name}
-            className="w-14 h-14 rounded-full border-2 border-indigo-400 object-cover shadow-sm"
+            className="w-14 h-14 rounded-2xl border-2 border-indigo-400/80 object-cover shadow-md ring-2 ring-indigo-200/50"
           />
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-xs text-slate-400 font-medium">Personal Workspace</span>
-              <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded font-mono text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-xs text-indigo-700 font-bold uppercase tracking-wider">Personal Workspace</span>
+              <span className="text-[10px] bg-white/90 border border-indigo-200/80 px-2 py-0.5 rounded-md font-mono text-indigo-900 font-bold shadow-2xs">
                 {profile.employeeId}
               </span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-white">{profile.name}</h1>
-            <p className="text-xs text-slate-400">
-              {profile.designation} • <span className="text-indigo-400 font-medium">{profile.department}</span>
+            <h1 className="text-2xl font-black tracking-tight text-slate-900">{profile.name}</h1>
+            <p className="text-xs text-slate-600 font-medium">
+              {profile.designation} • <span className="text-indigo-600 font-bold">{profile.department}</span>
             </p>
           </div>
         </div>
 
         {/* Live Punch Clock Widget */}
-        <div className="flex items-center gap-4 bg-slate-800/90 p-3 rounded-xl border border-slate-700/60 w-full md:w-auto justify-between md:justify-start">
+        <div className="flex items-center gap-4 bg-white/95 p-3.5 rounded-2xl border border-indigo-200/80 w-full md:w-auto justify-between md:justify-start shadow-xs relative z-10">
           <div className="flex flex-col text-left md:text-right">
-            <span className="text-[11px] uppercase font-semibold text-slate-400">Today's Shift</span>
-            <span className="text-xs font-semibold text-slate-200">
+            <span className="text-[11px] uppercase font-bold text-slate-500 tracking-wider">Today's Shift</span>
+            <span className="text-xs font-bold text-slate-800">
               {isClockedIn ? `Punched in at ${clockInTime}` : 'Not clocked in yet'}
             </span>
           </div>
           <Button
-            variant={isClockedIn ? 'danger' : 'primary'}
             size="md"
             onClick={toggleClock}
-            className={isClockedIn ? 'bg-rose-600 hover:bg-rose-700 text-white' : 'bg-emerald-600 hover:bg-emerald-700 text-white'}
+            className={`rounded-xl font-bold shadow-md ${
+              isClockedIn
+                ? 'bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white shadow-rose-500/25'
+                : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-emerald-500/25'
+            }`}
           >
             {isClockedIn ? (
               <>
@@ -219,42 +223,50 @@ export const EmployeeDashboard = () => {
       </div>
 
       {/* Quick Personal KPIs */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="p-3.5 hover:border-slate-300 transition-colors">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60 border border-emerald-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Attendance</span>
-            <Percent className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Attendance</span>
+            <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <Percent className="w-3.5 h-3.5 text-emerald-700" />
+            </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-slate-900">{personalStats.attendanceRate}%</div>
-          <p className="text-[11px] text-slate-500 mt-1">Punctuality Score</p>
-        </Card>
+          <div className="mt-2 text-2xl sm:text-3xl font-black text-emerald-950">{personalStats.attendanceRate}%</div>
+          <p className="text-[11px] text-emerald-600 mt-1 font-semibold">Punctuality Score</p>
+        </div>
 
-        <Card className="p-3.5 hover:border-slate-300 transition-colors">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-indigo-100/60 border border-indigo-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Days Present</span>
-            <UserCheck className="w-3.5 h-3.5 text-indigo-600" />
+            <span className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider">Days Present</span>
+            <div className="w-7 h-7 rounded-lg bg-indigo-100 flex items-center justify-center">
+              <UserCheck className="w-3.5 h-3.5 text-indigo-700" />
+            </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-slate-900">{personalStats.daysPresent}</div>
-          <p className="text-[11px] text-slate-500 mt-1">Shifts completed</p>
-        </Card>
+          <div className="mt-2 text-2xl sm:text-3xl font-black text-indigo-950">{personalStats.daysPresent}</div>
+          <p className="text-[11px] text-indigo-600 mt-1 font-semibold">Shifts completed</p>
+        </div>
 
-        <Card className="p-3.5 hover:border-slate-300 transition-colors">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-amber-100/60 border border-amber-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Late Arrivals</span>
-            <Clock className="w-3.5 h-3.5 text-amber-500" />
+            <span className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Late Arrivals</span>
+            <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
+              <Clock className="w-3.5 h-3.5 text-amber-700" />
+            </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-slate-900">{personalStats.lateArrivals}</div>
-          <p className="text-[11px] text-slate-500 mt-1">Grace period exceeded</p>
-        </Card>
+          <div className="mt-2 text-2xl sm:text-3xl font-black text-amber-950">{personalStats.lateArrivals}</div>
+          <p className="text-[11px] text-amber-600 mt-1 font-semibold">Grace period exceeded</p>
+        </div>
 
-        <Card className="p-3.5 hover:border-slate-300 transition-colors">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-sky-50 via-white to-cyan-100/60 border border-sky-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Avg Hours/Day</span>
-            <TrendingUp className="w-3.5 h-3.5 text-sky-600" />
+            <span className="text-[11px] font-bold text-sky-700 uppercase tracking-wider">Avg Hours/Day</span>
+            <div className="w-7 h-7 rounded-lg bg-sky-100 flex items-center justify-center">
+              <TrendingUp className="w-3.5 h-3.5 text-sky-700" />
+            </div>
           </div>
-          <div className="mt-2 text-2xl font-bold text-slate-900">{personalStats.averageWorkingHours}h</div>
-          <p className="text-[11px] text-slate-500 mt-1">Target: 8.0h shift</p>
-        </Card>
+          <div className="mt-2 text-2xl sm:text-3xl font-black text-sky-950">{personalStats.averageWorkingHours}h</div>
+          <p className="text-[11px] text-sky-600 mt-1 font-semibold">Target: 8.0h shift</p>
+        </div>
       </div>
 
       {/* Leave Balance Quotas */}

@@ -332,17 +332,18 @@ export const Attendance = () => {
       )}
 
       {/* Header with Live Punch Terminal & Clock */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 bg-white rounded-2xl border border-slate-200/80 shadow-xs">
-        <div className="space-y-1">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-cyan-500/15 rounded-2xl border border-emerald-200/90 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-emerald-300/30 to-teal-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="space-y-1 relative z-10">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">
               {isAdmin ? 'Enterprise Attendance & Timesheet Hub' : 'My Attendance & Work Hours'}
             </h1>
             <Badge variant={todayState.isClockedIn ? 'success' : 'neutral'} dot>
               {todayState.isClockedIn ? 'Active On Shift' : 'Clocked Out'}
             </Badge>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-600 font-medium">
             {isAdmin
               ? 'Real-time biometric punch terminal, punctuality logs, and workforce attendance compliance.'
               : 'Record daily shifts, verify check-in timings, and track overtime & attendance balance.'}
@@ -350,14 +351,14 @@ export const Attendance = () => {
         </div>
 
         {/* Digital Clock & Live Punch Controls */}
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-3 px-4 py-2 bg-slate-50 rounded-xl border border-slate-200">
-            <Clock className="w-5 h-5 text-indigo-600" />
+        <div className="flex flex-wrap items-center gap-3.5 relative z-10">
+          <div className="flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl border border-emerald-200/80 shadow-2xs">
+            <Clock className="w-5 h-5 text-emerald-600" />
             <div>
-              <div className="font-mono text-base font-bold text-slate-900 leading-none">
+              <div className="font-mono text-base font-black text-slate-900 leading-none">
                 {currentTime.toLocaleTimeString('en-US', { hour12: true })}
               </div>
-              <div className="text-[10px] text-slate-400 font-medium uppercase mt-0.5">
+              <div className="text-[10px] text-emerald-800 font-bold uppercase mt-0.5 tracking-wider">
                 {currentTime.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
               </div>
             </div>
@@ -366,21 +367,21 @@ export const Attendance = () => {
           {/* Punch Button */}
           {todayState.isClockedIn ? (
             <Button
-              variant="danger"
               size="md"
               disabled={isPunching}
               onClick={handleCheckOut}
               icon={isPunching ? Loader2 : Square}
+              className="bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-bold shadow-lg shadow-rose-500/25 ring-2 ring-rose-400/20 rounded-xl"
             >
               {isPunching ? 'Clocking Out...' : `Clock Out (${elapsedDuration || 'Active'})`}
             </Button>
           ) : (
             <Button
-              variant="primary"
               size="md"
               disabled={isPunching || (todayState.clockOutTime !== null)}
               onClick={handleCheckIn}
               icon={isPunching ? Loader2 : Play}
+              className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold shadow-lg shadow-emerald-500/25 ring-2 ring-emerald-400/20 rounded-xl"
             >
               {isPunching ? 'Clocking In...' : todayState.clockOutTime ? 'Shift Completed Today' : 'Clock In Now'}
             </Button>
@@ -392,6 +393,7 @@ export const Attendance = () => {
               size="md"
               icon={Plus}
               onClick={() => setManualModalOpen(true)}
+              className="rounded-xl bg-white/95 border-slate-200 font-bold hover:bg-slate-50"
             >
               Manual Log
             </Button>
@@ -400,53 +402,53 @@ export const Attendance = () => {
       </div>
 
       {/* Real-time KPI Statistics Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        <Card className="p-4 border-l-4 border-l-indigo-500">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase">Attendance Rate</div>
-          <div className="text-2xl font-bold text-slate-900 mt-1">{metrics.attendancePercentage}%</div>
-          <p className="text-[11px] text-indigo-600 font-medium mt-1 flex items-center gap-1">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-indigo-100/50 border border-indigo-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+          <div className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider">Attendance Rate</div>
+          <div className="text-2xl sm:text-3xl font-black text-indigo-950 mt-1">{metrics.attendancePercentage}%</div>
+          <p className="text-[11px] text-indigo-600 font-semibold mt-1 flex items-center gap-1">
             <TrendingUp className="w-3 h-3" /> Real-time turnover
           </p>
-        </Card>
+        </div>
 
-        <Card className="p-4 border-l-4 border-l-emerald-500">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase">Present Today</div>
-          <div className="text-2xl font-bold text-slate-900 mt-1">{metrics.presentCount}</div>
-          <p className="text-[11px] text-emerald-600 font-medium mt-1">✓ On-time check-ins</p>
-        </Card>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-emerald-100/50 border border-emerald-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+          <div className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Present Today</div>
+          <div className="text-2xl sm:text-3xl font-black text-emerald-950 mt-1">{metrics.presentCount}</div>
+          <p className="text-[11px] text-emerald-600 font-semibold mt-1">✓ On-time check-ins</p>
+        </div>
 
-        <Card className="p-4 border-l-4 border-l-amber-500">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase">Late Arrivals</div>
-          <div className="text-2xl font-bold text-slate-900 mt-1">{metrics.lateCount}</div>
-          <p className="text-[11px] text-amber-600 font-medium mt-1">Past 09:30 AM grace</p>
-        </Card>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-amber-100/50 border border-amber-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+          <div className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Late Arrivals</div>
+          <div className="text-2xl sm:text-3xl font-black text-amber-950 mt-1">{metrics.lateCount}</div>
+          <p className="text-[11px] text-amber-600 font-semibold mt-1">Past 09:30 AM grace</p>
+        </div>
 
-        <Card className="p-4 border-l-4 border-l-rose-500">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase">Absent / Unreported</div>
-          <div className="text-2xl font-bold text-slate-900 mt-1">{metrics.absentCount}</div>
-          <p className="text-[11px] text-rose-600 font-medium mt-1">Out of {metrics.totalWorkforce} staff</p>
-        </Card>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-rose-50 via-white to-rose-100/50 border border-rose-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+          <div className="text-[11px] font-bold text-rose-700 uppercase tracking-wider">Absent / Unreported</div>
+          <div className="text-2xl sm:text-3xl font-black text-rose-950 mt-1">{metrics.absentCount}</div>
+          <p className="text-[11px] text-rose-600 font-semibold mt-1">Out of {metrics.totalWorkforce} staff</p>
+        </div>
 
-        <Card className="p-4 border-l-4 border-l-sky-500 col-span-2 sm:col-span-1">
-          <div className="text-[11px] font-semibold text-slate-400 uppercase">Avg Working Hours</div>
-          <div className="text-2xl font-bold text-slate-900 mt-1">{metrics.averageWorkingHours} <span className="text-xs font-normal text-slate-400">hrs/day</span></div>
-          <p className="text-[11px] text-sky-600 font-medium mt-1">Standard 8.0 baseline</p>
-        </Card>
+        <div className="p-4 rounded-2xl bg-gradient-to-br from-sky-50 via-white to-cyan-100/50 border border-sky-200/90 shadow-xs hover:-translate-y-0.5 transition-all col-span-2 sm:col-span-1">
+          <div className="text-[11px] font-bold text-sky-700 uppercase tracking-wider">Avg Working Hours</div>
+          <div className="text-2xl sm:text-3xl font-black text-sky-950 mt-1">{metrics.averageWorkingHours} <span className="text-xs font-semibold text-sky-600">hrs/day</span></div>
+          <p className="text-[11px] text-sky-600 font-semibold mt-1">Standard 8.0 baseline</p>
+        </div>
       </div>
 
       {/* Main Content Card with Dual View Toggle */}
-      <Card>
+      <Card className="border-emerald-200/80 bg-white/95 shadow-xs">
         {/* Controls & Filter Header */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2">
             {/* View Switcher Buttons */}
-            <div className="bg-slate-100 p-1 rounded-lg flex items-center gap-1">
+            <div className="bg-slate-100/90 p-1 rounded-xl flex items-center gap-1 border border-slate-200/80">
               <button
                 type="button"
                 onClick={() => setActiveView('register')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeView === 'register'
-                    ? 'bg-white text-indigo-600 shadow-xs'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -455,13 +457,13 @@ export const Attendance = () => {
               <button
                 type="button"
                 onClick={() => setActiveView('calendar')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                   activeView === 'calendar'
-                    ? 'bg-white text-indigo-600 shadow-xs'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Monthly Calendar
+                Calendar Heatmap
               </button>
             </div>
           </div>

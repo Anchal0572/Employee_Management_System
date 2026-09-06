@@ -128,24 +128,27 @@ export const AIAssistant = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
-            <Sparkles className="w-6 h-6" />
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-gradient-to-r from-purple-600/15 via-fuchsia-600/10 to-indigo-600/15 rounded-2xl border border-purple-200/90 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-purple-300/30 to-fuchsia-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-purple-500/25 shrink-0 ring-2 ring-purple-300/30">
+            <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-slate-900">AI HR Policy Assistant</h1>
-              <Badge variant="primary">RAG-Powered</Badge>
+              <h1 className="text-2xl font-black text-slate-900 tracking-tight">AI HR Policy Intelligence</h1>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-300 shadow-2xs">
+                RAG Engine Active
+              </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-600 mt-0.5 font-medium">
               Grounded policy assistant adhering strictly to indexed company documents and Role-Based Access Controls.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button variant="secondary" size="sm" onClick={handleResetChat} icon={RotateCcw}>
+        <div className="flex items-center gap-3 relative z-10">
+          <Button variant="secondary" size="sm" onClick={handleResetChat} icon={RotateCcw} className="rounded-xl bg-white/95 border-slate-200 hover:bg-slate-50 font-bold">
             Clear Chat
           </Button>
         </div>
@@ -154,15 +157,15 @@ export const AIAssistant = () => {
       {/* Main Grid: Chat Workspace & Policy Documentation Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         {/* Chat Area (3 columns) */}
-        <Card className="lg:col-span-3 flex flex-col h-[650px] p-0 overflow-hidden shadow-sm">
+        <Card className="lg:col-span-3 flex flex-col h-[650px] p-0 overflow-hidden shadow-sm border-purple-200/80 bg-white/95">
           {/* Header Subtitle & Security Notice */}
-          <div className="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-xs text-slate-600">
+          <div className="px-5 py-3.5 bg-gradient-to-r from-purple-50/60 via-slate-50 to-indigo-50/40 border-b border-purple-100 flex items-center justify-between text-xs text-slate-600">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>RBAC & Privacy Guardrails Active</span>
+              <span className="font-semibold text-slate-700">RBAC & Privacy Guardrails Active</span>
             </div>
-            <span className="text-[11px] text-slate-400">
-              User: <span className="font-semibold text-slate-700">{user?.name}</span> ({user?.role})
+            <span className="text-[11px] text-slate-500">
+              User: <span className="font-bold text-purple-900">{user?.name}</span> ({user?.role})
             </span>
           </div>
 
@@ -178,7 +181,7 @@ export const AIAssistant = () => {
                   }`}
                 >
                   {!isUser && (
-                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                       <Bot className="w-4 h-4" />
                     </div>
                   )}
@@ -187,10 +190,10 @@ export const AIAssistant = () => {
                     <div
                       className={`p-4 rounded-2xl ${
                         isUser
-                          ? 'bg-indigo-600 text-white rounded-br-none shadow-sm'
+                          ? 'bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 text-white rounded-br-none shadow-md shadow-purple-500/15'
                           : msg.isRefusal
                           ? 'bg-rose-50 border border-rose-200 text-rose-900 rounded-bl-none'
-                          : 'bg-slate-100 text-slate-800 rounded-bl-none border border-slate-200/60'
+                          : 'bg-slate-100/90 text-slate-800 rounded-bl-none border border-slate-200/80'
                       }`}
                     >
                       {msg.isRefusal && (

@@ -309,15 +309,26 @@ export const LeaveManagement = () => {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Leave Management</h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Track annual vacation quotas, submit time-off requests, and manage approval lifecycles.
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-rose-500/15 rounded-2xl border border-amber-200/90 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-amber-300/30 to-rose-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="space-y-1 relative z-10">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Leave & Absence Operations</h1>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-800 border border-amber-300 shadow-2xs">
+              Time-off Hub
+            </span>
+          </div>
+          <p className="text-xs text-slate-600 font-medium">
+            Track annual vacation quotas, submit time-off requests, and manage administrative approval lifecycles.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button variant="primary" icon={Plus} onClick={() => setApplyModalOpen(true)}>
+        <div className="flex items-center gap-3 relative z-10">
+          <Button
+            size="md"
+            icon={Plus}
+            onClick={() => setApplyModalOpen(true)}
+            className="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-white font-bold shadow-lg shadow-amber-500/25 ring-2 ring-amber-400/20 rounded-xl"
+          >
             Apply for Leave
           </Button>
         </div>
@@ -325,66 +336,70 @@ export const LeaveManagement = () => {
 
       {/* Admin KPI Summary / Workforce Quotas */}
       {isAdmin ? (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <Card className="p-4 border-l-4 border-l-amber-500">
-            <div className="text-[11px] font-semibold text-slate-400 uppercase">Pending Requests</div>
-            <div className="text-2xl font-bold text-slate-900 mt-1">{adminSummary.pendingCount}</div>
-            <p className="text-[11px] text-amber-600 font-medium mt-1">Requires HR Decision</p>
-          </Card>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-amber-100/60 border border-amber-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+            <div className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Pending Requests</div>
+            <div className="text-2xl sm:text-3xl font-black text-amber-950 mt-1">{adminSummary.pendingCount}</div>
+            <p className="text-[11px] text-amber-600 font-semibold mt-1">Requires HR Decision</p>
+          </div>
 
-          <Card className="p-4 border-l-4 border-l-emerald-500">
-            <div className="text-[11px] font-semibold text-slate-400 uppercase">Approved Leaves</div>
-            <div className="text-2xl font-bold text-slate-900 mt-1">{adminSummary.approvedCount}</div>
-            <p className="text-[11px] text-emerald-600 font-medium mt-1">Reconciled in timesheets</p>
-          </Card>
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60 border border-emerald-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+            <div className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">Approved Leaves</div>
+            <div className="text-2xl sm:text-3xl font-black text-emerald-950 mt-1">{adminSummary.approvedCount}</div>
+            <p className="text-[11px] text-emerald-600 font-semibold mt-1">Reconciled in timesheets</p>
+          </div>
 
-          <Card className="p-4 border-l-4 border-l-indigo-500">
-            <div className="text-[11px] font-semibold text-slate-400 uppercase">On Leave Today</div>
-            <div className="text-2xl font-bold text-slate-900 mt-1">{adminSummary.onLeaveToday}</div>
-            <p className="text-[11px] text-indigo-600 font-medium mt-1">Active out-of-office</p>
-          </Card>
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-indigo-100/60 border border-indigo-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+            <div className="text-[11px] font-bold text-indigo-700 uppercase tracking-wider">On Leave Today</div>
+            <div className="text-2xl sm:text-3xl font-black text-indigo-950 mt-1">{adminSummary.onLeaveToday}</div>
+            <p className="text-[11px] text-indigo-600 font-semibold mt-1">Active out-of-office</p>
+          </div>
 
-          <Card className="p-4 border-l-4 border-l-rose-500">
-            <div className="text-[11px] font-semibold text-slate-400 uppercase">Rejected Requests</div>
-            <div className="text-2xl font-bold text-slate-900 mt-1">{adminSummary.rejectedCount}</div>
-            <p className="text-[11px] text-rose-600 font-medium mt-1">Coverage / policy issues</p>
-          </Card>
+          <div className="p-4 rounded-2xl bg-gradient-to-br from-rose-50 via-white to-rose-100/60 border border-rose-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+            <div className="text-[11px] font-bold text-rose-700 uppercase tracking-wider">Rejected Requests</div>
+            <div className="text-2xl sm:text-3xl font-black text-rose-950 mt-1">{adminSummary.rejectedCount}</div>
+            <p className="text-[11px] text-rose-600 font-semibold mt-1">Coverage / policy issues</p>
+          </div>
         </div>
       ) : (
         /* Employee Personal Leave Balance Cards */
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           {Object.entries(leaveBalances.balances).map(([type, quota]) => {
             const percent = quota.total > 0 ? Math.round((quota.remaining / quota.total) * 100) : 0;
+            const cardBg = 
+              type === 'Sick' ? 'from-emerald-50 via-white to-emerald-100/50 border-emerald-200/90' :
+              type === 'Casual' ? 'from-amber-50 via-white to-amber-100/50 border-amber-200/90' :
+              type === 'Emergency' ? 'from-rose-50 via-white to-rose-100/50 border-rose-200/90' :
+              type === 'Other' ? 'from-violet-50 via-white to-purple-100/50 border-violet-200/90' :
+              'from-indigo-50 via-white to-indigo-100/50 border-indigo-200/90';
+
+            const barColor = 
+              type === 'Sick' ? 'bg-emerald-500' :
+              type === 'Casual' ? 'bg-amber-500' :
+              type === 'Emergency' ? 'bg-rose-500' :
+              type === 'Other' ? 'bg-violet-500' :
+              'bg-indigo-600';
+
             return (
-              <Card key={type} className="p-4">
-                <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
+              <div key={type} className={`p-4 rounded-2xl bg-gradient-to-br ${cardBg} border shadow-xs hover:-translate-y-0.5 transition-all`}>
+                <div className="flex items-center justify-between text-xs font-bold text-slate-700">
                   <span>{type} Leave</span>
-                  <span className="text-indigo-600 font-semibold">{quota.remaining} left</span>
+                  <span className="text-indigo-600 font-black">{quota.remaining} left</span>
                 </div>
-                <div className="mt-2 text-2xl font-bold text-slate-900">
-                  {quota.remaining} <span className="text-xs text-slate-400 font-normal">/ {quota.total} days</span>
+                <div className="mt-2 text-2xl font-black text-slate-900">
+                  {quota.remaining} <span className="text-xs text-slate-400 font-semibold">/ {quota.total} d</span>
                 </div>
-                <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden">
+                <div className="w-full bg-slate-200/70 rounded-full h-2 mt-2 overflow-hidden">
                   <div
-                    className={`h-1.5 rounded-full ${
-                      type === 'Sick'
-                        ? 'bg-emerald-500'
-                        : type === 'Casual'
-                        ? 'bg-amber-500'
-                        : type === 'Emergency'
-                        ? 'bg-rose-500'
-                        : type === 'Other'
-                        ? 'bg-violet-500'
-                        : 'bg-indigo-600'
-                    }`}
+                    className={`h-2 rounded-full ${barColor}`}
                     style={{ width: `${percent}%` }}
                   />
                 </div>
-                <div className="flex items-center justify-between text-[10px] text-slate-400 mt-2">
+                <div className="flex items-center justify-between text-[10px] text-slate-500 mt-2 font-medium">
                   <span>{quota.used} used</span>
-                  {quota.pending > 0 && <span className="text-amber-600 font-medium">({quota.pending} pending)</span>}
+                  {quota.pending > 0 && <span className="text-amber-700 font-bold">({quota.pending} pending)</span>}
                 </div>
-              </Card>
+              </div>
             );
           })}
         </div>

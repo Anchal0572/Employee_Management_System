@@ -146,71 +146,96 @@ export const AdminDashboard = () => {
       value: kpis.totalEmployees,
       subtext: `${kpis.activeEmployees} active • ${kpis.newEmployees} new this period`,
       icon: Users,
-      color: 'indigo'
+      cardBg: 'bg-gradient-to-br from-indigo-50 via-white to-indigo-100/60',
+      border: 'border-indigo-200/90 hover:border-indigo-400',
+      iconBox: 'bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25',
+      valueColor: 'text-indigo-950',
+      glow: 'hover:shadow-indigo-500/20 shadow-xs'
     },
     {
       label: 'Attendance Rate',
       value: `${kpis.attendanceRate}%`,
       subtext: 'Average across scheduled shifts',
       icon: Percent,
-      color: 'emerald'
+      cardBg: 'bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60',
+      border: 'border-emerald-200/90 hover:border-emerald-400',
+      iconBox: 'bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-500/25',
+      valueColor: 'text-emerald-950',
+      glow: 'hover:shadow-emerald-500/20 shadow-xs'
     },
     {
       label: 'Absenteeism',
       value: `${kpis.absenteeism}%`,
       subtext: `${kpis.lateArrivals} late arrival${kpis.lateArrivals === 1 ? '' : 's'} recorded`,
       icon: UserX,
-      color: 'rose'
+      cardBg: 'bg-gradient-to-br from-rose-50 via-white to-rose-100/60',
+      border: 'border-rose-200/90 hover:border-rose-400',
+      iconBox: 'bg-gradient-to-tr from-rose-500 to-pink-500 text-white shadow-md shadow-rose-500/25',
+      valueColor: 'text-rose-950',
+      glow: 'hover:shadow-rose-500/20 shadow-xs'
     },
     {
       label: 'Pending Leaves',
       value: kpis.pendingLeaves,
       subtext: `${kpis.leaveUtilization} total approved leave days`,
       icon: CalendarClock,
-      color: 'amber'
+      cardBg: 'bg-gradient-to-br from-amber-50 via-white to-amber-100/60',
+      border: 'border-amber-200/90 hover:border-amber-400',
+      iconBox: 'bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-md shadow-amber-500/25',
+      valueColor: 'text-amber-950',
+      glow: 'hover:shadow-amber-500/20 shadow-xs'
     },
     {
       label: 'Monthly Payroll',
       value: `$${Number(kpis.monthlyPayroll || 0).toLocaleString()}`,
       subtext: 'Calculated baseline liability',
       icon: DollarSign,
-      color: 'sky'
+      cardBg: 'bg-gradient-to-br from-violet-50 via-white to-purple-100/60',
+      border: 'border-violet-200/90 hover:border-violet-400',
+      iconBox: 'bg-gradient-to-tr from-violet-600 to-purple-500 text-white shadow-md shadow-violet-500/25',
+      valueColor: 'text-violet-950',
+      glow: 'hover:shadow-violet-500/20 shadow-xs'
     },
     {
       label: 'Active Retention',
       value: kpis.totalEmployees > 0 ? `${Math.round((kpis.activeEmployees / kpis.totalEmployees) * 100)}%` : '100%',
       subtext: 'Healthy operational baseline',
       icon: TrendingUp,
-      color: 'emerald'
+      cardBg: 'bg-gradient-to-br from-sky-50 via-white to-cyan-100/60',
+      border: 'border-sky-200/90 hover:border-sky-400',
+      iconBox: 'bg-gradient-to-tr from-sky-500 to-blue-600 text-white shadow-md shadow-sky-500/25',
+      valueColor: 'text-sky-950',
+      glow: 'hover:shadow-sky-500/20 shadow-xs'
     }
   ];
 
   return (
     <div className="space-y-6">
       {/* Header Banner & Live Controls */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm">
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">HR Analytics & Intelligence</h1>
-            <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Live MongoDB Data
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-indigo-500/10 via-purple-500/15 to-pink-500/10 p-6 rounded-2xl border border-indigo-200/90 shadow-sm relative overflow-hidden backdrop-blur-md">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-indigo-300/30 to-purple-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">HR Analytics & Intelligence</h1>
+            <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full border border-emerald-300 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              Live Telemetry
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-600 mt-1 font-medium">
             Real-time workforce performance, attendance trends, departmental distribution, and payroll liability.
           </p>
         </div>
 
         {/* Global Filters */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5 relative z-10">
           {/* Department Filter */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
-            <Building2 className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 bg-white/95 border border-indigo-200/70 hover:border-indigo-400 rounded-xl px-3 py-1.5 shadow-2xs transition-colors">
+            <Building2 className="w-3.5 h-3.5 text-indigo-600" />
             <select
               value={department}
               onChange={(e) => setDepartment(e.target.value)}
-              className="bg-transparent text-xs font-medium text-slate-700 focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer"
             >
               {DEPARTMENTS.map((d) => (
                 <option key={d.value} value={d.value}>
@@ -221,12 +246,12 @@ export const AdminDashboard = () => {
           </div>
 
           {/* Date Range Filter */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5">
-            <Calendar className="w-3.5 h-3.5 text-slate-400" />
+          <div className="flex items-center gap-1.5 bg-white/95 border border-indigo-200/70 hover:border-indigo-400 rounded-xl px-3 py-1.5 shadow-2xs transition-colors">
+            <Calendar className="w-3.5 h-3.5 text-indigo-600" />
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="bg-transparent text-xs font-medium text-slate-700 focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs font-semibold text-slate-700 focus:outline-none cursor-pointer"
             >
               {DATE_RANGES.map((r) => (
                 <option key={r.value} value={r.value}>
@@ -243,13 +268,17 @@ export const AdminDashboard = () => {
             onClick={() => fetchDashboardData(true)}
             disabled={refreshing || loading}
             icon={RefreshCw}
-            className={refreshing ? 'animate-spin' : ''}
+            className={`rounded-xl shadow-2xs bg-white/90 border-slate-200 hover:bg-slate-50 ${refreshing ? 'animate-spin' : ''}`}
           >
             {refreshing ? 'Refreshing...' : 'Refresh'}
           </Button>
 
           <Link to="/employees/new">
-            <Button variant="primary" size="sm" icon={Plus}>
+            <Button
+              size="sm"
+              icon={Plus}
+              className="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold shadow-md shadow-indigo-500/25"
+            >
               New Employee
             </Button>
           </Link>
@@ -272,37 +301,40 @@ export const AdminDashboard = () => {
         {statCards.map((kpi, idx) => {
           const Icon = kpi.icon;
           return (
-            <Card key={idx} className="p-3.5 sm:p-4 hover:border-slate-300 transition-colors">
+            <div
+              key={idx}
+              className={`p-4 rounded-2xl border ${kpi.border} ${kpi.cardBg} backdrop-blur-md shadow-xs hover:shadow-xl ${kpi.glow} hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-default`}
+            >
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">{kpi.label}</span>
-                <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
-                  <Icon className="w-3.5 h-3.5" />
+                <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">{kpi.label}</span>
+                <div className={`w-8 h-8 rounded-xl ${kpi.iconBox} flex items-center justify-center transition-transform group-hover:scale-110 duration-200 shrink-0`}>
+                  <Icon className="w-4 h-4" />
                 </div>
               </div>
-              <div className="mt-2 text-xl sm:text-2xl font-bold text-slate-900">
+              <div className={`mt-3 text-2xl sm:text-3xl font-black ${kpi.valueColor} tracking-tight`}>
                 {loading ? <span className="text-slate-300 animate-pulse">--</span> : kpi.value}
               </div>
-              <p className="text-[11px] text-slate-500 mt-1 truncate">{kpi.subtext}</p>
-            </Card>
+              <p className="text-[11px] text-slate-500 mt-1.5 font-medium truncate">{kpi.subtext}</p>
+            </div>
           );
         })}
       </div>
 
       {/* AI Workforce Intelligence & Insights Section */}
-      <Card className="border-indigo-100 bg-gradient-to-b from-indigo-50/30 to-white shadow-sm overflow-hidden">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <Card className="border-purple-200/80 bg-gradient-to-br from-indigo-50/70 via-purple-50/50 to-pink-50/30 shadow-md backdrop-blur-xl overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-purple-100">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-200 shrink-0">
-              <Sparkles className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-purple-500/25 shrink-0">
+              <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-slate-900">AI Workforce Intelligence & Insights</h3>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-100 text-indigo-700 tracking-wide uppercase">
+                <h3 className="text-base font-black text-slate-900 tracking-tight">AI Workforce Intelligence & Insights</h3>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 tracking-wide uppercase border border-purple-200">
                   Advisory Layer
                 </span>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5 font-medium">
                 Automated pattern recognition analyzing attendance trends, punctuality clusters, and leave backlogs.
               </p>
             </div>
@@ -310,7 +342,7 @@ export const AdminDashboard = () => {
 
           <div className="flex items-center gap-2 self-start sm:self-auto">
             <Link to="/ai-assistant">
-              <Button variant="primary" size="sm" icon={Sparkles}>
+              <Button size="sm" icon={Sparkles} className="bg-gradient-to-r from-purple-600 via-fuchsia-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold shadow-md shadow-purple-500/20">
                 Policy Assistant
               </Button>
             </Link>
@@ -318,10 +350,10 @@ export const AdminDashboard = () => {
         </div>
 
         {/* Mandatory Policy & Ethics Disclaimer */}
-        <div className="my-4 p-3 bg-amber-50/80 border border-amber-200/80 rounded-xl flex items-center gap-2.5 text-amber-900 text-xs">
+        <div className="my-4 p-3.5 bg-amber-50/90 border border-amber-200/90 rounded-xl flex items-center gap-2.5 text-amber-900 text-xs shadow-2xs">
           <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0" />
           <p className="leading-relaxed">
-            <span className="font-semibold">Ethical AI Notice:</span> Insights and recommendations are strictly advisory and provide operational visibility for managers. AI outputs must never be used to make automatic hiring, termination, or punitive disciplinary decisions.
+            <span className="font-bold">Ethical AI Notice:</span> Insights and recommendations are strictly advisory and provide operational visibility for managers. AI outputs must never be used to make automatic hiring, termination, or punitive disciplinary decisions.
           </p>
         </div>
 
@@ -330,40 +362,46 @@ export const AdminDashboard = () => {
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setAiFilter('all')}
-              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-colors ${
-                aiFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                aiFilter === 'all'
+                  ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-xs'
+                  : 'bg-white/90 text-slate-600 hover:bg-slate-100 border border-slate-200/80'
               }`}
             >
               All ({aiData?.insights?.length || 0})
             </button>
             <button
               onClick={() => setAiFilter('attendance')}
-              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-colors ${
-                aiFilter === 'attendance' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                aiFilter === 'attendance'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs'
+                  : 'bg-white/90 text-slate-600 hover:bg-slate-100 border border-slate-200/80'
               }`}
             >
               Attendance
             </button>
             <button
               onClick={() => setAiFilter('leave')}
-              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-colors ${
-                aiFilter === 'leave' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              className={`px-3 py-1 text-xs font-bold rounded-lg transition-all ${
+                aiFilter === 'leave'
+                  ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs'
+                  : 'bg-white/90 text-slate-600 hover:bg-slate-100 border border-slate-200/80'
               }`}
             >
               Leaves
             </button>
           </div>
 
-          <div className="flex items-center gap-2 text-[11px] font-medium text-slate-500">
-            <span className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+          <div className="flex items-center gap-2.5 text-[11px] font-semibold text-slate-600 bg-white/80 px-3 py-1 rounded-xl border border-slate-200/70 shadow-2xs">
+            <span className="flex items-center gap-1 text-rose-700">
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
               High: {aiData?.counts?.high || 0}
             </span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 text-amber-700">
               <span className="w-2 h-2 rounded-full bg-amber-500"></span>
               Medium: {aiData?.counts?.medium || 0}
             </span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 text-emerald-700">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               Optimal: {aiData?.counts?.low || 0}
             </span>
@@ -386,27 +424,27 @@ export const AdminDashboard = () => {
                 return (
                   <div
                     key={item.id}
-                    className={`p-4 rounded-xl border transition-all flex flex-col justify-between ${
+                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between shadow-xs hover:shadow-md ${
                       isHigh
-                        ? 'bg-rose-50/40 border-rose-200 hover:border-rose-300'
+                        ? 'bg-gradient-to-br from-rose-50/90 via-white to-pink-50/50 border-rose-200 hover:border-rose-400'
                         : isMedium
-                        ? 'bg-amber-50/40 border-amber-200 hover:border-amber-300'
-                        : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
+                        ? 'bg-gradient-to-br from-amber-50/90 via-white to-yellow-50/50 border-amber-200 hover:border-amber-400'
+                        : 'bg-gradient-to-br from-emerald-50/90 via-white to-teal-50/50 border-emerald-200 hover:border-emerald-400'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-white/80 border border-slate-200 text-slate-700">
+                        <span className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs">
                           {item.category}
                         </span>
                         <div className="flex items-center gap-1.5">
                           <span
-                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
                               isHigh
-                                ? 'bg-rose-100 text-rose-700'
+                                ? 'bg-rose-100 text-rose-800 border border-rose-200'
                                 : isMedium
-                                ? 'bg-amber-100 text-amber-800'
-                                : 'bg-emerald-100 text-emerald-700'
+                                ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                                : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
                             }`}
                           >
                             {item.severity} severity
@@ -415,23 +453,23 @@ export const AdminDashboard = () => {
                       </div>
 
                       <h4 className="text-sm font-bold text-slate-900">{item.title}</h4>
-                      <p className="text-xs text-slate-700 mt-1 leading-relaxed">{item.insight}</p>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed font-medium">{item.insight}</p>
 
                       {/* Supporting Metric */}
-                      <div className="mt-3 p-2.5 bg-white/90 rounded-lg border border-slate-200/80 text-[11px] text-slate-600 flex items-start gap-2">
-                        <BrainCircuit className="w-3.5 h-3.5 text-indigo-500 mt-0.5 shrink-0" />
+                      <div className="mt-3 p-2.5 bg-white/90 rounded-xl border border-slate-200/80 text-[11px] text-slate-600 flex items-start gap-2 shadow-2xs">
+                        <BrainCircuit className="w-3.5 h-3.5 text-indigo-600 mt-0.5 shrink-0" />
                         <div>
-                          <span className="font-semibold text-slate-800">Supporting Metric: </span>
+                          <span className="font-bold text-slate-800">Supporting Metric: </span>
                           <span>{item.supportingMetric}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Actionable Recommendation */}
-                    <div className="mt-3 pt-3 border-t border-slate-200/60 flex items-start gap-2 text-xs text-slate-800">
+                    <div className="mt-3 pt-3 border-t border-slate-200/70 flex items-start gap-2 text-xs text-slate-800">
                       <Lightbulb className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" />
                       <div>
-                        <span className="font-semibold text-slate-900">Recommendation: </span>
+                        <span className="font-bold text-slate-900">Recommendation: </span>
                         <span>{item.recommendation}</span>
                       </div>
                     </div>
@@ -446,11 +484,11 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 1. Attendance & Presence Trend */}
         <Card
-          className="lg:col-span-2"
+          className="lg:col-span-2 border-indigo-200/80 bg-gradient-to-b from-indigo-50/40 via-white to-white shadow-xs"
           title="Attendance & Punctuality Trend"
           subtitle={`Daily rate and turnout records for ${dateRange === '7d' ? 'past 7 days' : dateRange === '30d' ? 'past 30 days' : dateRange === '90d' ? 'past 90 days' : 'past year'}`}
           headerAction={
-            <Link to="/attendance" className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+            <Link to="/attendance" className="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
               Live Roster <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           }
@@ -465,7 +503,7 @@ export const AdminDashboard = () => {
                 <AreaChart data={charts.attendanceTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="attendanceColor" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.25} />
+                      <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.35} />
                       <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
@@ -485,7 +523,7 @@ export const AdminDashboard = () => {
                     dataKey="presentRate"
                     name="Attendance Rate (%)"
                     stroke="#4f46e5"
-                    strokeWidth={2.5}
+                    strokeWidth={3}
                     fillOpacity={1}
                     fill="url(#attendanceColor)"
                   />
@@ -497,6 +535,7 @@ export const AdminDashboard = () => {
 
         {/* 2. Department Workforce Distribution */}
         <Card
+          className="border-teal-200/80 bg-gradient-to-b from-teal-50/40 via-white to-white shadow-xs"
           title="Department Distribution"
           subtitle="Workforce headcount across business units"
         >
@@ -528,9 +567,9 @@ export const AdminDashboard = () => {
                     />
                   </PieChart>
                 </ResponsiveContainer>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1 mt-2 text-[11px] text-slate-600 w-full px-2 max-h-24 overflow-y-auto">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 mt-2 text-[11px] text-slate-600 w-full px-2 max-h-24 overflow-y-auto">
                   {charts.departmentDistribution.map((d, i) => (
-                    <div key={i} className="flex items-center gap-1.5 truncate">
+                    <div key={i} className="flex items-center gap-1.5 truncate bg-slate-50/80 px-2 py-0.5 rounded-md border border-slate-100">
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: d.color }} />
                       <span className="truncate">{d.name}: <strong>{d.count}</strong></span>
                     </div>
@@ -546,10 +585,11 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* 3. Leave Statistics by Type */}
         <Card
+          className="border-amber-200/80 bg-gradient-to-b from-amber-50/40 via-white to-white shadow-xs"
           title="Leave Requests by Category"
           subtitle="Real-time breakdown of Approved, Pending, and Rejected requests"
           headerAction={
-            <Link to="/leaves" className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+            <Link to="/leaves" className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
               Manage Leaves <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           }
@@ -580,10 +620,11 @@ export const AdminDashboard = () => {
 
         {/* 4. Payroll Payout Trends */}
         <Card
+          className="border-violet-200/80 bg-gradient-to-b from-violet-50/40 via-white to-white shadow-xs"
           title="Payroll Overview & Expenditure Trend"
           subtitle="Monthly Gross Liability vs Net Disbursed Salaries"
           headerAction={
-            <Link to="/payroll" className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+            <Link to="/payroll" className="text-xs font-bold text-violet-700 hover:text-violet-800 flex items-center gap-1 bg-violet-50 px-2.5 py-1 rounded-lg border border-violet-200">
               All Payslips <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
           }
@@ -609,7 +650,7 @@ export const AdminDashboard = () => {
                     formatter={(val) => [`$${Number(val).toLocaleString()}`, '']}
                   />
                   <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '8px' }} />
-                  <Bar dataKey="grossSalary" name="Gross Payout" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="grossSalary" name="Gross Payout" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="netSalary" name="Net Disbursed" fill="#06b6d4" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -622,7 +663,7 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Employee Growth Over Time */}
         <Card
-          className="lg:col-span-1"
+          className="lg:col-span-1 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white shadow-xs"
           title="Headcount Growth"
           subtitle="New hires and talent onboarding timeline"
         >
@@ -636,7 +677,7 @@ export const AdminDashboard = () => {
                 <AreaChart data={charts.employeeGrowth} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                   <defs>
                     <linearGradient id="growthColor" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.35} />
                       <stop offset="95%" stopColor="#10b981" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
@@ -651,7 +692,7 @@ export const AdminDashboard = () => {
                     dataKey="count"
                     name="New Joiners"
                     stroke="#10b981"
-                    strokeWidth={2.5}
+                    strokeWidth={3}
                     fillOpacity={1}
                     fill="url(#growthColor)"
                   />
@@ -663,12 +704,12 @@ export const AdminDashboard = () => {
 
         {/* Actionable Pending Leaves Requiring Review */}
         <Card
-          className="lg:col-span-2"
+          className="lg:col-span-2 border-rose-200/80 bg-gradient-to-b from-rose-50/30 via-white to-white shadow-xs"
           title="Pending Leave Approvals"
           subtitle="Employee requests awaiting administrative authorization"
           headerAction={
             <Link to="/leaves">
-              <Button variant="outline" size="sm">
+              <Button size="sm" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold shadow-xs">
                 View All Leaves
               </Button>
             </Link>

@@ -165,22 +165,27 @@ export const Employees = () => {
       )}
 
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-gradient-to-r from-blue-500/15 via-cyan-500/10 to-indigo-500/15 rounded-2xl border border-blue-200/90 shadow-sm relative overflow-hidden backdrop-blur-xl">
+        <div className="absolute -right-16 -top-16 w-48 h-48 bg-gradient-to-br from-blue-300/30 to-cyan-300/20 rounded-full blur-2xl pointer-events-none" />
+        <div className="space-y-1 relative z-10">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Employees Directory</h1>
-            <Badge variant="neutral" size="sm">
-              {pagination.total} Registered
-            </Badge>
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Staff & Workforce Directory</h1>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-300 shadow-2xs">
+              {pagination.total} Active Personnel
+            </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-600 font-medium">
             Enterprise staff database with multi-field search, department allocation, and role-based records.
           </p>
         </div>
         {isAdmin && (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative z-10">
             <Link to="/employees/new">
-              <Button variant="primary" icon={Plus}>
+              <Button
+                size="md"
+                icon={Plus}
+                className="bg-gradient-to-r from-blue-600 via-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold shadow-lg shadow-blue-500/25 ring-2 ring-blue-400/20 rounded-xl"
+              >
                 Add Employee
               </Button>
             </Link>
@@ -188,7 +193,7 @@ export const Employees = () => {
         )}
       </div>
 
-      <Card>
+      <Card className="border-blue-200/80 bg-white/95 shadow-xs">
         {/* Controls Bar: Search & Filters */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div className="relative flex-1 max-w-md">
