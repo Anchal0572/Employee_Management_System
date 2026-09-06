@@ -11,7 +11,7 @@ export const NAVIGATION_ITEMS = [
 ];
 
 export const SYSTEM_INFO = {
-  appName: 'EMS Enterprise',
-  version: 'v1.0.0',
+  appName: 'WorkPulse',
+  version: 'v2.0.0',
   environment: import.meta.env.MODE || 'development'
 };

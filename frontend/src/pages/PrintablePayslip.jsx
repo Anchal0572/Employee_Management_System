@@ -103,7 +103,7 @@ export const PrintablePayslip = () => {
               <div className="w-8 h-8 rounded bg-slate-900 text-white flex items-center justify-center font-bold text-sm">
                 EMS
               </div>
-              <span className="text-xl font-bold tracking-tight text-slate-900">EMS ENTERPRISE GLOBAL INC.</span>
+              <span className="text-xl font-bold tracking-tight text-slate-900">WORKPULSE TECHNOLOGIES INC.</span>
             </div>
             <p className="text-xs text-slate-500 mt-1">100 Silicon Way, Suite 400 • San Francisco, CA 94107</p>
             <p className="text-xs text-slate-500">Corporate Tax ID: EIN-94-3829104 • payroll@ems.corp</p>

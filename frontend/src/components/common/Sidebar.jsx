@@ -56,12 +56,12 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
     <div className="flex flex-col h-full bg-slate-900 text-slate-300 border-r border-slate-800 select-none">
       {/* Brand Header */}
       <div className="h-16 flex items-center px-5 border-b border-slate-800 gap-3">
-        <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/20 shrink-0">
-          <Briefcase className="w-5 h-5 text-white" />
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/25 shrink-0">
+          <Activity className="w-5 h-5 text-white" />
         </div>
         <div className="flex flex-col min-w-0">
-          <span className="font-semibold text-sm tracking-wide text-white flex items-center gap-1.5 truncate">
-            EMS Enterprise
+          <span className="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 truncate">
+            Work<span className="text-indigo-400">Pulse</span>
             <span className={`text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded border ${
               isAdmin
                 ? 'bg-indigo-950 text-indigo-400 border-indigo-800/50'
@@ -70,7 +70,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               {role}
             </span>
           </span>
-          <span className="text-xs text-slate-400 truncate">HR & Workforce Suite</span>
+          <span className="text-xs text-slate-400 truncate">Workforce & HR OS</span>
         </div>
       </div>
 

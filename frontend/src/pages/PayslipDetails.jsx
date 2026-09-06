@@ -103,7 +103,7 @@ export const PayslipDetails = () => {
               <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
                 EMS
               </div>
-              <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">EMS Enterprise Global Inc.</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-indigo-600">WorkPulse Technologies Inc.</span>
             </div>
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-1">Salary Statement</h1>
             <p className="text-xs text-slate-500">Pay Period: {fmtMonth(payslip.salaryMonth)} (1st – Last day)</p>

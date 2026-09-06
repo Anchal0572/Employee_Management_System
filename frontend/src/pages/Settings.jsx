@@ -53,7 +53,7 @@ export const Settings = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               label="Legal Entity Name"
-              defaultValue="EMS Enterprise Global Inc."
+              defaultValue="WorkPulse Technologies Inc."
               required
             />
             <Input
