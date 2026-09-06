@@ -1,0 +1,34 @@
+{
+  "name": "employee-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-grade Full Stack Employee Management System (EMS)",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "ai-service"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix backend run dev",
+    "dev:client": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix backend test",
+    "test:all": "npm --prefix backend test && npm test --prefix tests",
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install && npm --prefix ai-service install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "ems",
+    "employee-management",
+    "mern",
+    "react",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC"
+}
