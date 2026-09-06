@@ -53,30 +53,30 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
   const navItems = isAdmin ? adminNavItems : employeeNavItems;
 
   const content = (
-    <div className="flex flex-col h-full bg-slate-900 text-slate-300 border-r border-slate-800 select-none">
+    <div className="flex flex-col h-full bg-white/95 backdrop-blur-xl text-slate-700 border-r border-slate-200/80 shadow-[1px_0_15px_rgba(0,0,0,0.02)] select-none">
       {/* Brand Header */}
-      <div className="h-16 flex items-center px-5 border-b border-slate-800 gap-3">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/25 shrink-0">
+      <div className="h-16 flex items-center px-5 border-b border-slate-100 gap-3 bg-gradient-to-r from-slate-50/60 via-white to-indigo-50/20">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold shadow-md shadow-indigo-500/25 ring-2 ring-indigo-50 shrink-0">
           <Activity className="w-5 h-5 text-white" />
         </div>
         <div className="flex flex-col min-w-0">
-          <span className="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 truncate">
-            Work<span className="text-indigo-400">Pulse</span>
-            <span className={`text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.2 rounded border ${
+          <span className="font-black text-sm tracking-tight text-slate-900 flex items-center gap-1.5 truncate">
+            Work<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Pulse</span>
+            <span className={`text-[9px] uppercase font-black tracking-wider px-1.5 py-0.5 rounded-md border shadow-2xs ${
               isAdmin
-                ? 'bg-indigo-950 text-indigo-400 border-indigo-800/50'
-                : 'bg-emerald-950 text-emerald-400 border-emerald-800/50'
+                ? 'bg-indigo-50 text-indigo-700 border-indigo-200/80'
+                : 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
             }`}>
               {role}
             </span>
           </span>
-          <span className="text-xs text-slate-400 truncate">Workforce & HR OS</span>
+          <span className="text-[11px] text-slate-400 font-medium truncate">Workforce & HR OS</span>
         </div>
       </div>
 
       {/* Role Navigation List */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        <div className="px-3 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+        <div className="px-3 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
           <span>{isAdmin ? 'Administration' : 'Employee Workspace'}</span>
         </div>
 
@@ -89,21 +89,31 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               end={item.path === '/'}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
                   isActive
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                    ? 'bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 text-white font-bold shadow-md shadow-indigo-500/25'
+                    : 'text-slate-600 hover:text-indigo-600 hover:bg-slate-50/90'
                 }`
               }
             >
-              <div className="flex items-center gap-3">
-                <Icon className="w-4 h-4 shrink-0" />
-                <span>{item.name}</span>
-              </div>
-              {item.badge && (
-                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white leading-none">
-                  {item.badge}
-                </span>
+              {({ isActive }) => (
+                <>
+                  <div className="flex items-center gap-3">
+                    <Icon className={`w-4 h-4 shrink-0 transition-colors ${
+                      isActive ? 'text-white' : 'text-slate-400 group-hover:text-indigo-600'
+                    }`} />
+                    <span>{item.name}</span>
+                  </div>
+                  {item.badge && (
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold leading-none ${
+                      isActive
+                        ? 'bg-white/20 text-white border border-white/30'
+                        : 'bg-indigo-600 text-white shadow-xs'
+                    }`}>
+                      {item.badge}
+                    </span>
+                  )}
+                </>
               )}
             </NavLink>
           );
@@ -111,16 +121,19 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
       </nav>
 
       {/* Current User Pill Footer */}
-      <div className="p-4 border-t border-slate-800">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50 text-xs">
-          <img
-            src={user.avatar}
-            alt={user.name}
-            className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-600 shrink-0"
-          />
+      <div className="p-3.5 border-t border-slate-100 bg-gradient-to-b from-transparent to-slate-50/70">
+        <div className="flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-colors text-xs">
+          <div className="relative shrink-0">
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="w-8 h-8 rounded-full object-cover ring-2 ring-slate-100"
+            />
+            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
+          </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-semibold text-slate-200 truncate">{user.name}</span>
-            <span className="text-[11px] text-slate-400 truncate capitalize">{user.role} • {user.department}</span>
+            <span className="font-bold text-slate-900 truncate leading-tight">{user.name}</span>
+            <span className="text-[11px] text-slate-400 truncate capitalize font-medium">{user.role} • {user.department}</span>
           </div>
         </div>
       </div>
@@ -138,7 +151,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
       {isMobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-slate-900/30 backdrop-blur-xs transition-opacity"
             onClick={onCloseMobile}
           />
           <div className="fixed inset-y-0 left-0 w-64 shadow-2xl z-50">
