@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { EMSDataProvider } from './context/EMSDataContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { MainLayout } from './layouts/MainLayout';
 import { ProtectedRoute, RoleRoute } from './components/common/ProtectedRoute';
 
@@ -24,6 +25,10 @@ import { Settings } from './pages/Settings';
 import { SystemHealth } from './pages/SystemHealth';
 import { AIAssistant } from './pages/AIAssistant';
 import { NotFound } from './pages/NotFound';
+import { Documents } from './pages/Documents';
+import { Expenses } from './pages/Expenses';
+import { NoticeBoard } from './pages/NoticeBoard';
+import { Performance } from './pages/Performance';
 
 /**
  * Dynamic Dashboard Selector: Automatically shows Admin or Employee Dashboard based on active role
@@ -100,6 +105,12 @@ function AppRoutes() {
         <Route path="payroll" element={<Payslips />} />
         <Route path="payroll/:id" element={<PayslipDetails />} />
 
+        {/* Enterprise Modules */}
+        <Route path="documents" element={<Documents />} />
+        <Route path="expenses" element={<Expenses />} />
+        <Route path="notices" element={<NoticeBoard />} />
+        <Route path="performance" element={<Performance />} />
+
         {/* Analytics & Reports (Admin only) */}
         <Route
           path="analytics"
@@ -122,15 +133,8 @@ function AppRoutes() {
         {/* System Diagnostics & Health Check */}
         <Route path="system-health" element={<SystemHealth />} />
 
-        {/* System Settings (Admin only) */}
-        <Route
-          path="settings"
-          element={
-            <RoleRoute allowedRoles={['admin']}>
-              <Settings />
-            </RoleRoute>
-          }
-        />
+        {/* Settings Module */}
+        <Route path="settings" element={<Settings />} />
 
         {/* 404 Catch-All */}
         <Route path="*" element={<NotFound />} />
@@ -141,13 +145,15 @@ function AppRoutes() {
 
 function App() {
   return (
-    <AuthProvider>
-      <EMSDataProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </EMSDataProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <EMSDataProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </EMSDataProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

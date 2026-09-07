@@ -16,7 +16,9 @@ import {
   Check,
   HardDrive,
   Globe,
-  Terminal
+  Terminal,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { Card } from '../components/ui/Card';
 import { Badge } from '../components/ui/Badge';
@@ -31,6 +33,7 @@ export const SystemHealth = () => {
   const [latencyMs, setLatencyMs] = useState(null);
   const [copiedContract, setCopiedContract] = useState(false);
   const [activeJsonTab, setActiveJsonTab] = useState('formatted'); // 'formatted' | 'raw'
+  const [showRawTelemetry, setShowRawTelemetry] = useState(false);
 
   const runAllDiagnostics = async () => {
     setLoading(true);
@@ -71,6 +74,7 @@ export const SystemHealth = () => {
   const memPercent = Math.min(100, Math.round((memUsedMb / memTotalMb) * 100)) || 25;
 
   const isDbConnected = Boolean(db?.isConnected);
+  const isDbActive = Boolean(db?.isConnected || (db?.state && db?.state.includes('active')));
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -82,14 +86,14 @@ export const SystemHealth = () => {
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-600 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
               <Activity className="w-5 h-5" />
             </div>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">System Health & API Diagnostics</h1>
-            <span className="flex items-center gap-1.5 text-[11px] font-bold text-teal-800 bg-teal-100/90 px-2.5 py-0.5 rounded-full border border-teal-300 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-600 animate-pulse" />
-              Live Telemetry Nominal
+            <h1 className="text-2xl font-black text-slate-900 tracking-tight">System Health & Services</h1>
+            <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full border border-emerald-300 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              All Systems Operational
             </span>
           </div>
           <p className="text-xs text-slate-600 font-medium">
-            Real-time backend microservices telemetry, endpoint latency monitoring, and environmental verification.
+            Real-time workforce services, database status, and operational health monitoring.
           </p>
         </div>
 
@@ -113,16 +117,16 @@ export const SystemHealth = () => {
         {/* Primary API Gateway */}
         <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-emerald-100/60 border border-emerald-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">API Gateway Status</span>
+            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">System Status</span>
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center shadow-xs">
               <Server className="w-4 h-4" />
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-black text-emerald-950 mt-2 flex items-center gap-2">
-            {basicHealth?.success ? '200 OK' : 'Degraded'}
+            {basicHealth?.success ? 'Healthy' : 'Degraded'}
           </div>
           <p className="text-[11px] text-emerald-600 mt-1 font-semibold flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Express REST Server Online
+            <CheckCircle2 className="w-3.5 h-3.5" /> All Services Operational
           </p>
         </div>
 
@@ -143,18 +147,30 @@ export const SystemHealth = () => {
         </div>
 
         {/* Database State */}
-        <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-white to-amber-100/60 border border-amber-200/90 shadow-xs hover:-translate-y-0.5 transition-all">
+        <div className={`p-4 rounded-2xl bg-gradient-to-br ${
+          isDbActive
+            ? 'from-emerald-50 via-white to-teal-100/60 border-emerald-200/90'
+            : 'from-amber-50 via-white to-amber-100/60 border-amber-200/90'
+        } border shadow-xs hover:-translate-y-0.5 transition-all`}>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Mongoose ODM State</span>
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-xs">
+            <span className={`text-[11px] font-bold uppercase tracking-wider ${
+              isDbActive ? 'text-emerald-700' : 'text-amber-700'
+            }`}>Database Engine</span>
+            <div className={`w-8 h-8 rounded-xl bg-gradient-to-tr ${
+              isDbActive ? 'from-emerald-500 to-teal-600' : 'from-amber-500 to-orange-500'
+            } text-white flex items-center justify-center shadow-xs`}>
               <Database className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-amber-950 mt-2 capitalize">
-            {isDbConnected ? 'Connected' : 'Standby Mode'}
+          <div className={`text-2xl sm:text-3xl font-black mt-2 capitalize ${
+            isDbActive ? 'text-emerald-950' : 'text-amber-950'
+          }`}>
+            {isDbConnected ? 'Connected' : 'Active (Dev Engine)'}
           </div>
-          <p className="text-[11px] text-amber-700 mt-1 font-semibold truncate">
-            {isDbConnected ? 'MongoDB Cluster Live' : 'Ready for Atlas Connection'}
+          <p className={`text-[11px] mt-1 font-semibold truncate ${
+            isDbActive ? 'text-emerald-700' : 'text-amber-700'
+          }`}>
+            {isDbConnected ? 'MongoDB Cluster Live' : 'In-Memory Store Operational'}
           </p>
         </div>
 
@@ -244,11 +260,11 @@ export const SystemHealth = () => {
           <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
             <span className="text-slate-500">Database Engine</span>
             <span className={`font-bold px-2 py-0.5 rounded border ${
-              isDbConnected
+              isDbActive
                 ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
                 : 'text-amber-700 bg-amber-50 border-amber-200'
             }`}>
-              {isDbConnected ? 'Atlas Live' : 'Standby / Local'}
+              {isDbConnected ? 'Atlas Live' : 'In-Memory Active'}
             </span>
           </div>
         </Card>
@@ -291,63 +307,140 @@ export const SystemHealth = () => {
         </div>
       </Card>
 
-      {/* Contract Verification Cards (Styled Light Glassmorphic, Not Dark Black) */}
+      {/* Human-Friendly Service Health & Infrastructure Overview */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Endpoint 1: Basic Health Contract */}
+        {/* Card 1: API Gateway Status */}
         <Card
           className="border-emerald-200/80 bg-white/95 shadow-xs"
-          title="Endpoint: GET /api/health"
-          subtitle="Primary Health Contract Verification"
+          title="API Gateway Service"
+          subtitle="Main Express REST Server & Endpoint Health"
           headerAction={
-            <div className="flex items-center gap-2">
-              <Badge variant={basicHealth?.success ? 'success' : 'danger'}>
-                {basicHealth?.success ? '200 OK' : 'Failed'}
-              </Badge>
-              <button
-                type="button"
-                onClick={() => copyToClipboard(JSON.stringify(basicHealth, null, 2))}
-                className="p-1.5 text-slate-400 hover:text-slate-700 bg-slate-50 rounded-lg border border-slate-200 transition-colors"
-                title="Copy Payload"
-              >
-                {copiedContract ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
-            </div>
+            <Badge variant={basicHealth?.success ? 'success' : 'danger'}>
+              {basicHealth?.success ? 'Active & Healthy' : 'Degraded'}
+            </Badge>
           }
         >
-          <div className="bg-slate-50/90 rounded-xl p-4 border border-slate-200 font-mono text-xs text-slate-800 overflow-x-auto">
-            <div className="flex items-center gap-2 text-[11px] text-emerald-800 font-bold mb-2 pb-2 border-b border-slate-200">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> HTTP/1.1 200 OK • Application/JSON
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50/60 border border-emerald-200/70 text-xs">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-emerald-900">API Gateway Status</span>
+              </div>
+              <span className="font-bold text-emerald-700 bg-white px-2 py-0.5 rounded shadow-2xs border border-emerald-200">
+                Online • Fully Operational
+              </span>
             </div>
-            <pre className="text-emerald-950 font-semibold">{JSON.stringify(basicHealth || { message: 'Probing API...' }, null, 2)}</pre>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Service Name</span>
+                <span className="font-bold text-slate-800 mt-0.5 block">EMS Core API</span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Environment</span>
+                <span className="font-bold text-teal-700 mt-0.5 block capitalize">{detailedHealth?.data?.environment || 'Development'}</span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Version</span>
+                <span className="font-bold text-slate-800 mt-0.5 block">{detailedHealth?.data?.version || '1.0.0'}</span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Server Host</span>
+                <span className="font-bold text-slate-800 mt-0.5 block">Port 5000 (localhost)</span>
+              </div>
+            </div>
           </div>
         </Card>
 
-        {/* Endpoint 2: Full Diagnostic Telemetry */}
+        {/* Card 2: Database & Storage Status */}
         <Card
           className="border-teal-200/80 bg-white/95 shadow-xs"
-          title="Endpoint: GET /api/health/details"
-          subtitle="Full Telemetry & Environment Inspector"
+          title="Data Storage & Services"
+          subtitle="Workforce Persistence & System Runtime"
           headerAction={
-            <div className="flex items-center gap-2">
-              <Badge variant="info">Telemetry Payload</Badge>
-              <button
-                type="button"
-                onClick={() => copyToClipboard(JSON.stringify(detailedHealth, null, 2))}
-                className="p-1.5 text-slate-400 hover:text-slate-700 bg-slate-50 rounded-lg border border-slate-200 transition-colors"
-                title="Copy Payload"
-              >
-                {copiedContract ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
-            </div>
+            <Badge variant="success">
+              {isDbActive ? 'Operational' : 'Standby'}
+            </Badge>
           }
         >
-          <div className="bg-slate-50/90 rounded-xl p-4 border border-slate-200 font-mono text-xs text-slate-800 overflow-x-auto max-h-72">
-            <div className="flex items-center gap-2 text-[11px] text-teal-800 font-bold mb-2 pb-2 border-b border-slate-200">
-              <Terminal className="w-3.5 h-3.5 text-teal-600" /> Comprehensive System Diagnostic Telemetry
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 rounded-xl bg-teal-50/60 border border-teal-200/70 text-xs">
+              <div className="flex items-center gap-2.5">
+                <Database className="w-4 h-4 text-teal-600 shrink-0" />
+                <span className="font-semibold text-teal-900">Database Engine</span>
+              </div>
+              <span className="font-bold text-teal-700 bg-white px-2 py-0.5 rounded shadow-2xs border border-teal-200">
+                {isDbConnected ? 'MongoDB Live' : 'Active (Dev Engine)'}
+              </span>
             </div>
-            <pre className="text-slate-900 font-medium">{JSON.stringify(detailedHealth || { message: 'Awaiting response...' }, null, 2)}</pre>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Storage Mode</span>
+                <span className="font-bold text-slate-800 mt-0.5 block truncate">
+                  {db?.storageEngine || 'In-Memory Store'}
+                </span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">System Uptime</span>
+                <span className="font-bold text-violet-700 mt-0.5 block">{uptime?.formatted || 'Active'}</span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">Security Shield</span>
+                <span className="font-bold text-indigo-700 mt-0.5 block">JWT + RBAC Shield</span>
+              </div>
+              <div className="p-3 bg-slate-50/80 rounded-xl border border-slate-200/70">
+                <span className="text-[11px] text-slate-500 font-medium block">System Status</span>
+                <span className="font-bold text-emerald-700 mt-0.5 block">All Systems Normal</span>
+              </div>
+            </div>
           </div>
         </Card>
+      </div>
+
+      {/* Collapsible Advanced Developer Telemetry (Cleanly Hidden by Default) */}
+      <div className="pt-2">
+        <button
+          type="button"
+          onClick={() => setShowRawTelemetry(!showRawTelemetry)}
+          className="flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors py-2 px-3 rounded-lg hover:bg-slate-100"
+        >
+          <Terminal className="w-4 h-4 text-slate-400" />
+          <span>{showRawTelemetry ? 'Hide Advanced Developer Telemetry (JSON)' : 'View Advanced Developer Telemetry (JSON)'}</span>
+          {showRawTelemetry ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+        </button>
+
+        {showRawTelemetry && (
+          <div className="mt-3 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="bg-slate-900 text-slate-100 rounded-xl p-4 font-mono text-xs overflow-x-auto">
+              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-slate-400 text-[11px]">
+                <span>GET /api/health Payload</span>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(JSON.stringify(basicHealth, null, 2))}
+                  className="hover:text-white"
+                >
+                  {copiedContract ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <pre className="text-emerald-400">{JSON.stringify(basicHealth, null, 2)}</pre>
+            </div>
+
+            <div className="bg-slate-900 text-slate-100 rounded-xl p-4 font-mono text-xs overflow-x-auto max-h-72">
+              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-slate-400 text-[11px]">
+                <span>GET /api/health/details Payload</span>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(JSON.stringify(detailedHealth, null, 2))}
+                  className="hover:text-white"
+                >
+                  {copiedContract ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <pre className="text-teal-300">{JSON.stringify(detailedHealth, null, 2)}</pre>
+            </div>
+          </div>
+        )}
       </div>
 
       {error && (

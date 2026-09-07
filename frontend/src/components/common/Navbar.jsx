@@ -13,17 +13,21 @@ import {
   ChevronDown,
   ArrowLeftRight,
   Shield,
-  UserCheck
+  UserCheck,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { healthService } from '../../services/healthService';
 import { useAuth } from '../../context/AuthContext';
 import { useEMSData } from '../../context/EMSDataContext';
+import { useTheme } from '../../context/ThemeContext';
 import { Breadcrumbs } from './Breadcrumbs';
 import { NotificationDropdown } from './NotificationDropdown';
 
 export const Navbar = ({ onOpenMobile }) => {
   const { user, role, switchRole, logout, isAdmin } = useAuth();
   const { notifications } = useEMSData();
+  const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
 
   const [apiOnline, setApiOnline] = useState(null);
@@ -127,7 +131,7 @@ export const Navbar = ({ onOpenMobile }) => {
             <AlertCircle className="w-3.5 h-3.5 text-rose-600" />
           )}
           <span className="hidden xl:inline">
-            {apiOnline === null ? 'Probing API...' : apiOnline ? 'API 200 OK' : 'API Offline'}
+            {apiOnline === null ? 'Probing API...' : apiOnline ? 'API Online' : 'API Offline'}
           </span>
         </button>
 

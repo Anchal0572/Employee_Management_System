@@ -12,8 +12,7 @@ import {
   Activity,
   Sparkles,
   TrendingUp,
-  Cpu,
-  Palette
+  Cpu
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { Input } from '../components/ui/Input';
@@ -126,32 +125,9 @@ export const Login = () => {
 
   return (
     <div
-      className="min-h-screen relative overflow-hidden flex flex-col justify-center py-10 sm:px-6 lg:px-8 selection:bg-indigo-500 selection:text-white transition-all duration-700"
+      className="min-h-screen relative overflow-hidden flex flex-col justify-center py-10 sm:px-6 lg:px-8 selection:bg-indigo-500 selection:text-white"
       style={currentTheme.meshStyle}
     >
-      {/* Interactive Theme Switcher Pill in Top Right */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-30 flex items-center gap-1.5 p-1 bg-white/85 backdrop-blur-md rounded-2xl border border-white/90 shadow-lg shadow-slate-200/50">
-        <div className="px-2.5 py-1 text-[11px] font-bold text-slate-400 flex items-center gap-1 border-r border-slate-200/80">
-          <Palette className="w-3.5 h-3.5 text-indigo-500" />
-          <span className="hidden sm:inline">Theme</span>
-        </div>
-        {Object.entries(THEMES).map(([key, t]) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => setActiveTheme(key)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              activeTheme === key
-                ? 'bg-slate-900 text-white shadow-sm font-bold'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
-            }`}
-            title={`Switch to ${t.name}`}
-          >
-            <span>{t.badge}</span>
-            <span className="hidden md:inline">{t.name}</span>
-          </button>
-        ))}
-      </div>
 
       {/* Ambient Lighting Orbs */}
       <div className={`absolute -top-36 -left-36 w-[34rem] h-[34rem] ${currentTheme.orb1} rounded-full blur-3xl pointer-events-none transition-all duration-700`} />
@@ -216,13 +192,10 @@ export const Login = () => {
         </div>
 
         {/* Brand Heading */}
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center">
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
             Work<span className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.accentText}`}>Pulse</span>
           </h1>
-          <span className="px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-widest rounded-full bg-white/90 text-slate-800 border border-slate-200/80 shadow-2xs">
-            OS 2.0
-          </span>
         </div>
         <p className="mt-1.5 text-sm text-slate-500 font-medium max-w-sm mx-auto">
           Intelligent Workforce, Payroll & Analytics Platform
@@ -326,7 +299,7 @@ export const Login = () => {
 
           <div className="mt-6 pt-4 border-t border-slate-100 text-center">
             <p className="text-[11px] text-slate-400 font-medium">
-              WorkPulse OS • Enterprise Workforce Suite • v2.0
+              WorkPulse • Enterprise Workforce Suite
             </p>
           </div>
         </div>

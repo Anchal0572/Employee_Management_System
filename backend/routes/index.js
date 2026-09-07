@@ -9,6 +9,10 @@ const notificationRoutes = require('./notificationRoutes');
 const payrollRoutes = require('./payrollRoutes');
 const dashboardRoutes = require('./dashboardRoutes');
 const aiRoutes = require('./aiRoutes');
+const documentRoutes = require('./documentRoutes');
+const expenseRoutes = require('./expenseRoutes');
+const announcementRoutes = require('./announcementRoutes');
+const performanceRoutes = require('./performanceRoutes');
 
 const router = express.Router();
 
@@ -23,5 +27,9 @@ router.use('/notifications', notificationRoutes);
 router.use('/payroll', payrollRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/ai', aiRoutes);
+router.use('/documents', documentRoutes);
+router.use('/expenses', expenseRoutes);
+router.use('/announcements', announcementRoutes);
+router.use('/performance', performanceRoutes);
 
 module.exports = router;
