@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -50,22 +52,34 @@ app.use(sanitizer);
 // Global API Rate Limiter
 app.use('/api', apiRateLimiter);
 
-// Root welcome route
-app.get('/', (req, res) => {
-  res.status(200).json({
-    name: 'Employee Management System (EMS) API',
-    status: 'online',
-    documentation: '/docs',
-    healthCheck: '/api/health'
-  });
-});
-
 // API Routes aggregator
 const { serve } = require('inngest/express');
 const { inngest, functions } = require('./jobs');
 app.use('/api/inngest', serve({ client: inngest, functions }));
 
 app.use('/api', apiRoutes);
+
+// Serve Frontend Static Assets in Production
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  // Root welcome route in development
+  app.get('/', (req, res) => {
+    res.status(200).json({
+      name: 'Employee Management System (EMS) API',
+      status: 'online',
+      documentation: '/docs',
+      healthCheck: '/api/health'
+    });
+  });
+}
 
 // Catch 404 routes
 app.use(notFoundHandler);
